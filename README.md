@@ -1,4 +1,4 @@
-# DistanseTraveled
+# DistanceTraveled
 ###### Spring Boot project
 
 ## Step-by-step tutorial "How to install and launch Neo4j database server"
