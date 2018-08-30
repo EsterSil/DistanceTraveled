@@ -1,0 +1,11 @@
+.map{
+  float: left;
+  width: 70%;
+  border: 2px solid darkslategray;
+}
+.eventsBar{
+  float: right;
+  width: 23%;
+  height: 500px;
+
+}
