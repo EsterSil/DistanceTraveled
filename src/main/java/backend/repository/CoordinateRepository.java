@@ -1,7 +1,7 @@
-package userservice.repository;
+package backend.repository;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
-import userservice.model.Coordinate;
+import backend.entity.Coordinate;
 
 /**
  * repository for Coordinate Node Entity

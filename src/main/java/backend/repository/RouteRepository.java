@@ -1,7 +1,7 @@
-package userservice.repository;
+package backend.repository;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
-import userservice.model.Route;
+import backend.entity.Route;
 /**
  * repository for Route Node Entity
  */

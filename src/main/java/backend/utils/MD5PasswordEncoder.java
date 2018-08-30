@@ -1,4 +1,4 @@
-package userservice.utils;
+package backend.utils;
 
 import org.springframework.stereotype.Component;
 

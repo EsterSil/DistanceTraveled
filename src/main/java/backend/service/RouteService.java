@@ -1,11 +1,11 @@
-package userservice.service;
+package backend.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import userservice.model.Coordinate;
-import userservice.model.Route;
-import userservice.repository.RouteRepository;
+import backend.entity.Coordinate;
+import backend.entity.Route;
+import backend.repository.RouteRepository;
 
 import java.util.ArrayList;
 import java.util.List;

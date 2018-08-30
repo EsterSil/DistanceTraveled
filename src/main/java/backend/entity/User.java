@@ -1,7 +1,10 @@
-package userservice.model;
+package backend.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -10,10 +13,11 @@ import java.io.Serializable;
  */
 
 @Entity
+@Table(name = "Users")
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long userID;
 
     private String login;
@@ -23,6 +27,18 @@ public class User implements Serializable {
     private String firstName;
 
     private String lastName;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = false)
+    private List<Event> eventList;
+    @JsonIgnore
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
 
     public User() {
     }

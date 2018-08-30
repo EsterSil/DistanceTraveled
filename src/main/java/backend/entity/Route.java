@@ -1,4 +1,4 @@
-package userservice.model;
+package backend.entity;
 
 import org.neo4j.ogm.annotation.*;
 

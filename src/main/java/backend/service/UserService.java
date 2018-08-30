@@ -1,11 +1,12 @@
-package userservice.service;
+package backend.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import userservice.model.User;
-import userservice.repository.UserRepository;
+import backend.entity.User;
+
+import backend.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +33,15 @@ public class UserService {
     }
 
     public Long saveUser(String password, String login) {
+
         User user = new User(login, password);
+        //UserTest user = new UserTest(login, password);
         repository.save(user);
         log.info("userService:: new user " + user.toString());
         return user.getUserID();
     }
 
-    public void updateUserPasswordByID(Long id, String password) {
+  public void updateUserPasswordByID(Long id, String password) {
         Optional<User> optionalUser = findById(id);
         User user = null;
         if (optionalUser.isPresent()) {
