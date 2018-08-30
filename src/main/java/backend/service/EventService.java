@@ -24,12 +24,6 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    /*public Long saveEvent(String eventName, String eventDiscription, User author, String categoty, Double latitude, Double longitude, String locationString, Timestamp startEvent, Timestamp endEvent) {
-        Event event = new Event(eventName, eventDiscription,author,categoty,latitude,longitude,locationString,startEvent,endEvent);
-        this.eventRepository.save(event);
-        return event.geteventId();
-    }*/
-
     public Long saveEvent(@NotNull Event event) {
         this.eventRepository.save(event);
         log.info("eventService::  event add to BD " + event.toString());

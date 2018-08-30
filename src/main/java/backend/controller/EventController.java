@@ -29,26 +29,8 @@ public class EventController {
 
     }
 
-   /* @GetMapping(value = "/welcome")
-    public @ResponseBody User list() {
-        User user = new User("User1","User1Password");
-        System.out.println("Controller Work");
-        return user;
-    }*/
-
-   /* @PostMapping(value = "/events") //, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    //@ResponseBody
-   // @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity addEvent(@RequestBody Event event){ //create EventBody to Event Throw constructor
-        event.setUser(userService.findById(event.getUserID()).get());
-        eventService.saveEvent(event);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }*/
-
-    @PostMapping(value = "/events") //, produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    //@ResponseBody
-   // @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity addEvent(@RequestBody EventBody eventBody){ //create EventBody to Event Throw constructor
+    @PostMapping(value = "/events")
+   public ResponseEntity addEvent(@RequestBody EventBody eventBody) { //create EventBody to Event Throw constructor
         eventBody.setUser(userService.findById(eventBody.getUserID()).get());
         Arrays.stream(eventBody.getCategory().split(",")).forEach(id ->
                 eventBody.addCategory(categoryService.findById(Long.valueOf(id))));
@@ -58,5 +40,4 @@ public class EventController {
         eventService.findVerifyEvent().forEach(event1 -> System.out.println("Event Verify " + event1));
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 }
