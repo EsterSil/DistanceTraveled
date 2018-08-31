@@ -1,0 +1,24 @@
+<agm-map [latitude]="(startPointLat)" [longitude]="(startPointLng)" [zoom]=12 [draggableCursor]="cursor"
+        (mapClick)="clickOnMap($event)">
+  <app-map-content></app-map-content>
+<!--  <tr *ngFor="let route of rotesArray">
+    <agm-marker [latitude]=route[0].lat [longitude]="route[0].lng">
+      <agm-info-window >Данные о маршруте</agm-info-window>
+    </agm-marker>
+    <agm-marker [latitude]=route[route.length-1].lat [longitude]="route[route.length-1].lng">
+      <agm-info-window >Данные о маршруте</agm-info-window>
+    </agm-marker>
+    <agm-polyline [strokeColor]= "'red'" (lineClick)="onClickPolyline(route)">
+      <ng-container *ngFor="let point of route">
+        <agm-polyline-point
+          [latitude]="point.lat"
+          [longitude]="point.lng">
+        </agm-polyline-point>
+      </ng-container>
+    </agm-polyline>
+  </tr>-->
+</agm-map>
+<div>
+  <button (click)="onEventMode()"> Add new Marker</button>
+</div>
+
