@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EventBody {
-    private Long userID;
+    private Long userId;
     private String eventName;
     private String eventDiscription;
     private User user;
@@ -25,7 +25,7 @@ public class EventBody {
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public EventBody(
-            @JsonProperty("userID") Long userID,
+            @JsonProperty("userId") Long userId,
             @JsonProperty("eventName") String eventName,
             @JsonProperty("eventDiscription") String eventDiscription,
             @JsonProperty("category") String category,
@@ -34,7 +34,7 @@ public class EventBody {
             @JsonProperty("location") String location,
             @JsonProperty("startEvent") String startEvent,
             @JsonProperty("endEvent") String endEvent) {
-        this.userID = userID;
+        this.userId = userId;
         this.eventName = eventName;
         this.eventDiscription = eventDiscription;
         this.category = category;
@@ -74,12 +74,12 @@ public class EventBody {
         this.categorySet.add(category);
     }
 
-    public Long getUserID() {
-        return userID;
+    public Long getuserId() {
+        return userId;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setuserId(Long userId) {
+        this.userId = userId;
     }
 
 
