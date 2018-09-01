@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
       console.log('coords.lng ' + $event.coords.lng );
       // let newEvent = new MapEvent('testEvent', $event.coords.lat, $event.coords.lng);
       console.log('map: 1');
-      this.mapContent.addNewEventOnMap(new MapEvent('testEvent', $event.coords.lat, $event.coords.lng));
+      //this.mapContent.addNewEventOnMap(new MapEvent('testEvent', $event.coords.lat, $event.coords.lng));
       console.log('map: 2');
       this.eventConstructor.setLatLng($event.coords.lat, $event.coords.lng);
       console.log('map: 3');
