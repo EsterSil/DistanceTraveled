@@ -1,19 +1,19 @@
-import {Event} from '../Event';
+import {MapEvent} from '../classes/MapEvent';
 import {AgmInfoWindow, AgmMarker, MarkerManager} from '@agm/core';
 import {QueryList} from '@angular/core';
 
 export class EventService {
-  private _allShowEvent: Array<Event> = new Array<Event>();
+  private _allShowEvent: Array<MapEvent> = new Array<MapEvent>();
 
-  addEvent(event: Event) {
+  addEvent(event: MapEvent) {
     this._allShowEvent.push(event);
   }
 
-  get allShowEvent(): Array<Event> {
+  get allShowEvent(): Array<MapEvent> {
     return this._allShowEvent;
   }
 
-  set allShowEvent(value: Array<Event>) {
+  set allShowEvent(value: Array<MapEvent>) {
     this._allShowEvent = value;
   }
 }

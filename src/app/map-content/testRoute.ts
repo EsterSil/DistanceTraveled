@@ -1,6 +1,6 @@
-import {LatLngDate} from './LatLngDate';
-import {Route } from './Route';
-import {Routes} from './Routes';
+import {LatLngDate} from './classes/LatLngDate';
+import {Route } from './classes/Route';
+import {Routes} from './classes/Routes';
 
 const pointArray1: LatLngDate[] = [
 {lat: 55.729910, lng: 37.639458, date: 1500000000000},

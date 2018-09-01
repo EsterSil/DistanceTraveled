@@ -1,7 +1,7 @@
 import {AgmInfoWindow, AgmMarker, InfoWindowManager} from '@agm/core';
 import {InfoWindowOptions} from '@agm/core/services/google-maps-types';
 import {ElementRef} from '@angular/core';
-import {MarkerRoute} from '../MarkerRoute';
+import {MarkerRoute} from '../classes/MarkerRoute';
 import {PolylineService} from './PolylineService';
 
 export class WindowService {

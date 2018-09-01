@@ -1,6 +1,6 @@
-import {AgmMarker, LatLngLiteral, MarkerManager} from '@agm/core';
-import {MarkerRoute} from '../MarkerRoute';
-import {Event} from '../Event';
+import {AgmInfoWindow, AgmMarker, InfoWindowManager, LatLngLiteral, MarkerManager} from '@agm/core';
+import {MarkerRoute} from '../classes/MarkerRoute';
+import {MapEvent} from '../classes/MapEvent';
 export class MarkerService {
 
   allMarkerRoute: Array<MarkerRoute> = new Array<MarkerRoute>();
@@ -20,13 +20,23 @@ export class MarkerService {
     return marker;
   }
 
-  public addEventMarkersOnMap(manager: MarkerManager, events: Array<Event>) {
-    events.forEach(event => {
-      let eventMarker: AgmMarker = new AgmMarker(manager);
-      eventMarker.latitude = event.latitude;
-      eventMarker.longitude = event.longitude;
-      eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Flag-1-Right-Azure-icon.png';
-      manager.addMarker(eventMarker);
+  public addAllEventMarkersOnMap(manager: MarkerManager, mapEvents: Array<MapEvent>) {
+    mapEvents.forEach(mapevent => {
+      this.addEventMarkerOnMap(manager, mapevent);
     });
   }
+  public addEventMarkerOnMap(manager: MarkerManager, mapEvent: MapEvent) {
+      let eventMarker: AgmMarker = new AgmMarker(manager);
+      eventMarker.latitude = mapEvent.latitude;
+      eventMarker.longitude = mapEvent.longitude;
+      eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Flag-1-Right-Azure-icon.png';
+      // eventMarker.mouseOver();
+      manager.addMarker(eventMarker);
+  }
+  /*
+  public addWindow(marker: AgmMarker) {
+    marker.openInfoWindow = true;
+    let infoManafer = InfoWindowManager();
+    let info = new AgmInfoWindow();
+  }*/
 }

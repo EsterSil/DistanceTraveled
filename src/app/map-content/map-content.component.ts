@@ -12,12 +12,12 @@ import {
 import {ROUTES} from './testRoute';
 import {EVENTS} from './testEvents';
 import {AgmInfoWindow} from '@agm/core';
-import {MarkerRoute} from './MarkerRoute';
+import {MarkerRoute} from './classes/MarkerRoute';
 import {PolylineService} from './servises/PolylineService';
 import {MarkerService} from './servises/MarkerService';
 import {WindowService} from './servises/WindowService';
 import {RouteInfoService} from './routeInfo/routeInfoService';
-import {Event} from './Event';
+import {MapEvent} from './classes/MapEvent';
 
 @Component({
   selector: 'app-map-content',
@@ -35,15 +35,17 @@ export class MapContentComponent implements OnInit {
   markerServices = new MarkerService();
   routeInfoService = new RouteInfoService(this.mapApiWrapper);
 
-  @Input() localEvent: Event;
+  @Input() localEvent: MapEvent;
   ngOnInit() {
-    this.addContentOnMap();
-    this.addEventOnMap();
+    // this.addContentOnMap();
+    this.addLocalEventsOnMap();
   }
- public addEventOnMap() {
-    this.markerServices.addEventMarkersOnMap(this.markerManager, EVENTS);
+  private addLocalEventsOnMap() {
+    this.markerServices.addAllEventMarkersOnMap(this.markerManager, EVENTS);
   }
-
+  public addNewEventOnMap(mapEvent: MapEvent) {
+    this.markerServices.addEventMarkerOnMap(this.markerManager, mapEvent);
+  }
 
   async addContentOnMap() {
     for (let i = 0; i < ROUTES.routes.length; i++) {

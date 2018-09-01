@@ -1,6 +1,6 @@
-import {AgmMarker} from '@agm/core';
 
-export class Event {
+
+export class MapEvent {
   eventName: String;
   eventDiscription: String;
   latitude: number;

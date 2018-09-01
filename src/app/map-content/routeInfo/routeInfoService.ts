@@ -1,5 +1,5 @@
-import {Route} from '../Route';
-import {LatLngDate} from '../LatLngDate';
+import {Route} from '../classes/Route';
+import {LatLngDate} from '../classes/LatLngDate';
 import {GoogleMapsAPIWrapper} from '@agm/core';
 declare const google: any;
 export class RouteInfoService {

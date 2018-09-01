@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ROUTES} from '../map-content/testRoute';
 import {TestEvents} from '../map-content/testEvents';
-import {Event} from '../map-content/Event';
+import {MapEvent} from '../map-content/classes/MapEvent';
 import {MapContentComponent} from '../map-content/map-content.component';
+import {EventConstructorComponent} from '../event-constructor/event-constructor.component';
 
 @Component({
   selector: 'app-map',
@@ -15,6 +16,7 @@ export class MapComponent implements OnInit {
   eventModeOn  = false;
   cursor = 'pointer';
   @ViewChild(MapContentComponent) mapContent: MapContentComponent;
+  @ViewChild(EventConstructorComponent) eventConstructor: EventConstructorComponent;
   ngOnInit() {
   }
   onEventMode() {
@@ -24,9 +26,16 @@ export class MapComponent implements OnInit {
     if (this.eventModeOn) {
       console.log('coords.lat ' + $event.coords.lat );
       console.log('coords.lng ' + $event.coords.lng );
-      TestEvents.addTestEvent(new Event('testEvent', $event.coords.lat, $event.coords.lng))
-      this.mapContent.addEventOnMap();
+      // let newEvent = new MapEvent('testEvent', $event.coords.lat, $event.coords.lng);
+      console.log('map: 1');
+      this.mapContent.addNewEventOnMap(new MapEvent('testEvent', $event.coords.lat, $event.coords.lng));
+      console.log('map: 2');
+      this.eventConstructor.setLatLng($event.coords.lat, $event.coords.lng);
+      console.log('map: 3');
+      this.eventConstructor.display = true;
+      console.log('map: 111111111');
       this.eventModeOn = false;
+      TestEvents.addTestEvent(new MapEvent('testEvent', $event.coords.lat, $event.coords.lng));
       }
   }
 }
