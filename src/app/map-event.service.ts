@@ -28,9 +28,9 @@ export class MapEventService {
     EVENTS.forEach(ev => {
       console.log( '2: lon ev : ' + ev.longitude + ' lat: ' + ev.latitude);
       console.log( '2: lon: ' + southWest.lng + ' lat: ' + northEast.lng);
-      if (ev.longitude <= southWest.lng && ev.longitude <= northEast.lng ) {
-        console.log( '3');
-         if (ev.latitude >= southWest.lat && ev.latitude >= northEast.lat ) {
+      console.log( '3: lon: ' + southWest.lat + ' lat: ' + northEast.lat);
+      if (ev.longitude >= southWest.lat && ev.longitude <= northEast.lat ) {
+         if (ev.latitude >= southWest.lng && ev.latitude <= northEast.lng ) {
            console.log( '4');
             local.push(ev);
          }

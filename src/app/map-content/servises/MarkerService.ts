@@ -28,17 +28,11 @@ export class MarkerService {
   }
   public addEventMarkerOnMap(manager: MarkerManager, mapEvent: MapEvent) {
       let eventMarker: AgmMarker = new AgmMarker(manager);
-    console.log('events 1');
-    console.log(mapEvent);
       eventMarker.latitude = mapEvent.latitude;
-    console.log('events 2');
       eventMarker.longitude = mapEvent.longitude;
-      eventMarker.visible = true;
-    console.log('events 3');
       eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Flag-1-Right-Azure-icon.png';
-    console.log('events 4');
       manager.addMarker(eventMarker);
-    console.log('events 5');
+
   }
   /*
   public addWindow(marker: AgmMarker) {
