@@ -5,6 +5,10 @@ export class LatLngDate implements LatLngLiteral {
   lng: number;
   date: number;
 
+  constructor (lat: number, lng: number) {
+    this.lng = lng;
+    this.lat = lat;
+  }
  /* getLat(): number {
     return this.lat;
   }

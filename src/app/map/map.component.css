@@ -5,10 +5,8 @@ agm-map {
   height: 600px;
 }
 .constructor{
-  float: right;
-  width: 20%;
+
+  height: 500px;
+  width: 300px;
 }
-.content{
-  float: left;
-  width: 76%;
-}
+

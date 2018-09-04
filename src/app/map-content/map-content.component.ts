@@ -1,10 +1,10 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, AfterViewInit} from '@angular/core';
 import {
   AgmMap,
   AgmMarker,
   AgmPolyline,
   GoogleMapsAPIWrapper,
-  InfoWindowManager,
+  InfoWindowManager, LatLngBounds,
   LatLngLiteral,
   MarkerManager,
   PolylineManager
@@ -18,6 +18,13 @@ import {MarkerService} from './servises/MarkerService';
 import {WindowService} from './servises/WindowService';
 import {RouteInfoService} from './routeInfo/routeInfoService';
 import {MapEvent} from './classes/MapEvent';
+import {EventService} from './servises/EventService';
+import {async} from 'q';
+import {RouteService} from '../route.service';
+import {MapComponent} from '../map/map.component';
+import {LatLngDate} from './classes/LatLngDate';
+import {MapEventService} from '../map-event.service';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-map-content',
@@ -27,54 +34,65 @@ export class MapContentComponent implements OnInit {
   constructor(public mapApiWrapper: GoogleMapsAPIWrapper,
               public polilineManager: PolylineManager,
               public markerManager: MarkerManager,
-              public infoWindowsManager: InfoWindowManager) {
+              public infoWindowsManager: InfoWindowManager,
+              private routeService: RouteService,
+              private mapEventService: MapEventService ) {
   }
-
+  @Input() currentBounds: LatLngDate[];
+  localEvents: Array<MapEvent> = [];
   polylineServices = new PolylineService();
   windowServices = new WindowService();
   markerServices = new MarkerService();
   routeInfoService = new RouteInfoService(this.mapApiWrapper);
 
-  @Input() localEvent: MapEvent;
   ngOnInit() {
-    // this.addContentOnMap();
-    this.addLocalEventsOnMap();
+     this.addContentOnMap();
+     this.addLocalEventsOnMap();
   }
-  private addLocalEventsOnMap() {
-    this.markerServices.addAllEventMarkersOnMap(this.markerManager, EVENTS);
+  public getLocalEvents(northEast: LatLngDate, southWest: LatLngDate) {
+    this.currentBounds = [northEast, southWest];
+    this.mapEventService.getLocalEvents(northEast, southWest).subscribe( events => this.localEvents = events);
+    console.log(' got it ' + this.localEvents.length );
+    console.log(' NE: ' + northEast.lat + ' ' + northEast.lng);
+    console.log(' SW: ' + southWest.lat + ' ' + southWest.lng);
+  }
+  public addLocalEventsOnMap() {
+    if (this.localEvents.length > 0) {
+      this.markerServices.addAllEventMarkersOnMap(this.markerManager, EVENTS); // this.localEvents);
+    }
   }
   public addNewEventOnMap(mapEvent: MapEvent) {
     this.markerServices.addEventMarkerOnMap(this.markerManager, mapEvent);
   }
 
   async addContentOnMap() {
-    for (let i = 0; i < ROUTES.routes.length; i++) {
-      await this.routeInfoService.countDistance(ROUTES.routes[i]);
-      this.routeInfoService.countDuration(ROUTES.routes[i]);
-      const coordinate: Array<LatLngLiteral> = ROUTES.routes[i].route;
+    for (let i = 0; i < ROUTES.length; i++) {
+      await this.routeInfoService.countDistance(ROUTES[i]);
+      this.routeInfoService.countDuration(ROUTES[i]);
+      const coordinate: Array<LatLngLiteral> = ROUTES[i].route;
 
-      let agmPoliline = this.polylineServices.addPolilaneOnMap(this.polilineManager, {
+      const agmPoliline = this.polylineServices.addPolilaneOnMap(this.polilineManager, {
         path: coordinate,
         strokeColor: 'black'
       });
       this.polilineManager.createEventObservable('click', agmPoliline).subscribe(() => this.clickPolyline(agmPoliline));
       this.polylineServices.addRoute(agmPoliline);
 
-      let markerA = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[0]);
-      let markerB = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[coordinate.length - 1]);
+      const markerA = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[0]);
+      const markerB = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[coordinate.length - 1]);
       this.markerManager.createEventObservable('click', markerA).subscribe(() => this.clickMarker(markerA, startInfoWin));
       this.markerManager.createEventObservable('click', markerB).subscribe(() => this.clickMarker(markerB, endInfoWin));
 
 
       this.markerServices.addMarkerRoute(new MarkerRoute(agmPoliline, markerA, markerB));
 
-      let startInfoWin: AgmInfoWindow = this.windowServices.addInfoWindowOnMap(this.infoWindowsManager, {
+      const startInfoWin: AgmInfoWindow = this.windowServices.addInfoWindowOnMap(this.infoWindowsManager, {
         position: coordinate[0],
-        content: 'Distance: ' + ROUTES.routes[i].distance.toFixed(2) + ' km. \n' + 'Duration: ' + ROUTES.routes[i].duration
+        content: 'Distance: ' + ROUTES[i].distance.toFixed(2) + ' km. \n' + 'Duration: ' + ROUTES[i].duration
       });
-      let endInfoWin: AgmInfoWindow = this.windowServices.addInfoWindowOnMap(this.infoWindowsManager, {
+      const endInfoWin: AgmInfoWindow = this.windowServices.addInfoWindowOnMap(this.infoWindowsManager, {
         position: coordinate[coordinate.length - 1],
-        content: 'Distance: ' + ROUTES.routes[i].distance.toFixed(2) + ' km. \n' + 'Duration: ' + ROUTES.routes[i].duration
+        content: 'Distance: ' + ROUTES[i].distance.toFixed(2) + ' km. \n' + 'Duration: ' + ROUTES[i].duration
       });
 
       this.windowServices.addInfoWindow(startInfoWin);
@@ -98,6 +116,7 @@ export class MapContentComponent implements OnInit {
     this.polylineServices.unfocusedPolilanes(this.polilineManager);
     this.polylineServices.focucedPolylane(this.polilineManager, polyline);
   }
+
 
 }
 

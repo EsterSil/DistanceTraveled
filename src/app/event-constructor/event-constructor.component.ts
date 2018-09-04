@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AgmInfoWindow, InfoWindowManager} from '@agm/core';
 import {MapEvent} from '../map-content/classes/MapEvent';
 import {MapEventService} from '../map-event.service';
@@ -12,9 +12,10 @@ export class EventConstructorComponent implements OnInit {
   selectedLat: number;
   selectedLng: number;
   eventName: string;
-  eventDiscription: string;
+  eventDescription: string;
+  date: number;
   constructor(private mapEventService: MapEventService) { }
-  display = false;
+  @Input() display = false;
 
   showDialog() {
     this.display = true;

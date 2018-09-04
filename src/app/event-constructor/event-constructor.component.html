@@ -6,19 +6,24 @@
       Header content here
     </p-header>
     <div class="ui-g ui-fluid" *ngIf="selectedLng&&selectedLat">
-      <div class="ui-g-2"><label for="title">Label</label></div>
-      <div class="ui-g-10"><input type="text" pInputText id="title" [(ngModel)]="eventName"></div>
+      <div class="ui-g-4"><label for="title">Label</label></div>
+      <div class="ui-g-8"><input type="text" pInputText id="title" [(ngModel)]="eventName"></div>
 
-      <div class="ui-g-2"><label for="lat">Lat</label></div>
-      <div class="ui-g-10"><input id="lat" type="text" readonly pInputText [ngModel]="selectedLat"></div>
-
-      <div class="ui-g-2"><label for="lng">Lng</label></div>
-      <div class="ui-g-10"><input id="lng" type="text" readonly pInputText [ngModel]="selectedLng"></div>
-    </div>
-    <p-footer>
-      <div class="ui-dialog-buttonpane ui-helper-clearfix">
-        <button type="button" icon="fa-plus" (click)="addEvent()"> Add Event</button>
+      <div class="ui-g-4">
+        Date
       </div>
-    </p-footer>
+      <div class="ui-g-8">
+        <p-calendar [(ngModel)]="date"></p-calendar>
+      </div>
+      <div class="ui-g-4">
+        Description
+      </div>
+      <div class="ui-g-8">
+        <textarea pInputTextarea type="text" [(ngModel)]="eventDescription"></textarea>
+      </div>
+      <div class="ui-g-12"><label>Lat: {{selectedLat}}</label> <label>Lng: {{selectedLng}}</label></div>
+      <div class="ui-g-4" > <p-button label="Add Even" icon="fa-plus" (click)="addEvent()"></p-button></div>
+    </div>
+
   </p-dialog>
 </div>

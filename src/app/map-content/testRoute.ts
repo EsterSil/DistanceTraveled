@@ -18,9 +18,14 @@ const pointArray3: LatLngDate[] = [
 ];
 
 const route1: Route = new Route(pointArray1);
+route1.routeID = 1;
+route1.distance = 300;
 const route2: Route = new Route(pointArray2);
+route2.routeID = 2;
+route1.distance = 400;
 const route3: Route = new Route(pointArray3);
-
-export const ROUTES: Routes = {
-  routes: [route1, route2, route3]
-};
+route3.routeID = 3;
+route3.distance = 900;
+export const ROUTES: Route[] = [
+    route1, route2, route3
+];

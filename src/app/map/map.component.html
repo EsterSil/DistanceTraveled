@@ -1,11 +1,35 @@
-<div class="content"> <agm-map [latitude]="(startPointLat)" [longitude]="(startPointLng)" [zoom]=12 [draggableCursor]="cursor"
-        (mapClick)="clickOnMap($event)">
-  <app-map-content></app-map-content>
 
-</agm-map> </div>
-<div>
-  <button (click)="onEventMode()"> Add new Marker</button>
+
+<link rel="stylesheet" type="text/css" href="/node_modules/primeicons/primeicons.css" />
+<link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/nova-light/theme.css" />
+<link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
+
+<div class="ui-g">
+  <div class="ui-g-9">
+    <agm-map #AgmMap [latitude]="(startPointLat)" [longitude]="(startPointLng)" [zoom]=12 [draggableCursor]="cursor"
+             (mapClick)="clickOnMap($event)" (boundsChange)="onBoundsChange($event)">
+      <app-map-content [currentBounds]="currentBounds"></app-map-content>
+    </agm-map>
+  </div>
+  <div class="ui-g-3">
+    <div>
+      <p-button label="Add New Event" (onClick)="onEventMode()"></p-button>
+    </div>
+
+    <h2> Resent routes</h2>
+    <ul>
+      <li *ngFor="let route of resentRoutes">
+        <span> id: {{route.routeID}},
+          dist: {{route.distance}}
+        </span></li>
+    </ul>
+  </div>
 </div>
-<div class="constructor"><app-event-constructor></app-event-constructor> </div>
+
+
+
+
+  <div class="constructor"><app-event-constructor></app-event-constructor> </div>
+
 
 
